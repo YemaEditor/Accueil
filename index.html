@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Éditeur Yema</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="Yema_Editor.png" type="image/png">
+</head>
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <button id="addCharacterBtn">Créer personnage</button>
+            <button id="importTupperJSONBtn" class="import-button">Importer Tupper JSON</button>
+            <button id="viewScenariosBtn">Mes Scénarios</button>
+            <button id="createScenarioBtn">Créer Scénario</button>
+            <h2>Liste Personnages :</h2>
+            <!-- Ajouter cette section dans la sidebar avant la liste des personnages -->
+            <input type="text" id="searchCharacter" placeholder="Rechercher un personnage..." />
+            <div id="characterList">
+                <!-- Les personnages ajoutés apparaîtront ici -->
+            </div>
+            <button id="uptateJSONBtn" class="uptate-button">Update JSON</button>
+            <button id="importJSONBtn" class="import-button">Importer JSON</button>
+            <button id="exportJSONBtn" class="export-button">Exporter JSON</button>
+        </div>
+        <div class="main">
+            <!-- Inside the body tag -->
+<div id="dropIndicator" class="drop-indicator hidden"></div>
+
+            <div id="discordMessages">
+                
+                <!-- Les messages seront affichés ici -->
+            </div>
+            <textarea id="jsonEditor"class="hidden" placeholder="Éditez le JSON ici..."></textarea>
+                <!-- class="hidden"  -->
+            </div>
+    </div>
+    </div>
+
+    <!-- Modal pour ajouter un personnage -->
+    <div id="characterModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Ajouter un personnage</h2>
+            <input type="text" id="characterName" placeholder="Nom du personnage">
+            <input type="text" id="characterAvatar" placeholder="URL de l'avatar">
+            <button id="saveCharacterBtn">Enregistrer</button>
+        </div>
+    </div>
+
+    <div id="CreateModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <input type="text" id="scénario" placeholder="Nom du scénario">
+            <button id="startScenarioBtn">Créer scénario</button>
+        </div>
+    </div>
+
+    <!-- Modal pour les scénarios -->
+    <div id="scenariosModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Mes Scénarios</h2>
+            <div id="scenariosList">
+                <!-- Les boutons de scénario apparaîtront ici -->
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
