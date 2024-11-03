@@ -17,7 +17,7 @@ document.getElementById('startScenarioBtn').addEventListener('click', startNewSc
 document.getElementById('viewScenariosBtn').addEventListener('click', openScenariosModal);
 document.getElementById('importJSONBtn').addEventListener('click', importJSON);
 document.getElementById('exportJSONBtn').addEventListener('click', exportJSON);
-document.getElementById('importTupperJSONBtn').addEventListener('click', importJSON);
+document.getElementById('importTupperJSONBtn').addEventListener('click', importedJSON);
 
 
 window.addEventListener('click', function(event) {
@@ -330,9 +330,64 @@ async function exportJSON() {
         }
     }
 }
-
-// Modify the importJSON function to handle different JSON types
 function importJSON() {
+    console.log('Import JSON function called');
+
+    const fileInput = document.createElement('input');
+    fileInput.type = 'file';
+    fileInput.accept = '.json';
+    fileInput.style.display = 'none';
+    document.body.appendChild(fileInput);
+
+    fileInput.addEventListener('change', function(event) {
+        const file = event.target.files[0];
+        console.log('Selected file:', file);
+
+        if (!file) {
+            alert('Aucun fichier sélectionné.');
+            return;
+        }
+
+        const reader = new FileReader();
+        reader.onload = function(fileEvent) {
+            try {
+                const importedMessages = JSON.parse(fileEvent.target.result);
+                console.log('Imported JSON:', importedMessages);
+
+                characters = [];
+                messages = [];
+                document.getElementById('characterList').innerHTML = '';
+
+                importedMessages.forEach(msg => {
+                    if (!characters.find(c => c.name === msg.webhookName)) {
+                        const character = { name: msg.webhookName, avatar: msg.webhookAvatar };
+                        characters.push(character);
+                        addCharacterToList(character);
+                    }
+
+                    messages.push({
+                        webhookName: msg.webhookName,
+                        webhookAvatar: msg.webhookAvatar,
+                        message: msg.message || "",
+                        time: msg.time || 3
+                    });
+                });
+
+                updateDiscordMessages();
+                updateJSONEditor();
+                saveToLocalStorage();
+            } catch (error) {
+                alert('Erreur lors de l\'importation du fichier JSON');
+                console.error('Error parsing JSON:', error);
+            }
+        };
+        reader.readAsText(file);
+    });
+
+    fileInput.click();
+}
+// Modify the importJSON function to handle different JSON types
+function importedJSON() {
     const fileInput = document.createElement('input');
     fileInput.type = 'file';
     fileInput.accept = '.json';
