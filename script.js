@@ -264,8 +264,10 @@ function updateDiscordMessages() {
 
         discordMessages.appendChild(messageElement); // Add to the main container
     });
-}
 
+    // Scroll to the latest message
+    discordMessages.scrollTop = discordMessages.scrollHeight;
+}
 
 
 // Ajout de l'événement de recherche de personnage
